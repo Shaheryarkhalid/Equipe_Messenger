@@ -3,7 +3,7 @@ A Full-Featured Chat Messenger with Audio and Video Call Capabilities, A compreh
 
 Users can enjoy: 
 
-    - Real-time text chat with individuals or groups 
+	- Real-time text chat with individuals or groups 
 
 	- High-quality audio and video calls 
     
@@ -46,27 +46,36 @@ To get started with ChatMax, simply clone the repository, install the dependenci
 
 Dependencies:  
 
-    - Build Tool: Vite
+	- Build Tool: Vite
+ 
+	- Package Manager: Npm
 	
-    - Design Tool: Tail Wind CSS
+	- Design Tool: Tail-Wind CSS
 	
-    - plugin-basic-ssl: v_1.1.0
-	
-    - React v_18.2.0
-    
-	- react-router-dom v_6.22.3
-    
+	- React v_18.2.0
+ 
 	- React-Dom v_18.2.0
-    
-	- emoji-picker-react v_4.9.2
-    
+ 
+	- react-router-dom v_6.22.3	
+ 
 	- firebase v_10.9.0
-    
+ 
 	- react-firebase-hooks v_5.1.1
-    
-	- lodash.throttle v_4.1.1
-    
-	- uuid v_9.0.1
 
+	- font-awesome: v_6.0.0
+
+ 	- plugin-basic-ssl: v_1.1.0
+			
+	- emoji-picker-react v_4.9.2		
+	
+	- lodash.throttle v_4.1.1
+	
+	- uuid v_9.0.1
+   Dev Command:
+   
+	npm run dev
+   Build Command:
+ 
+   	npm run build 
 Contributing:  
     Equipe_Messenger is an open-source project, and we welcome contributions from the community. If you're interested in contributing, please submit a pull request or open an issue to discuss your ideas.
