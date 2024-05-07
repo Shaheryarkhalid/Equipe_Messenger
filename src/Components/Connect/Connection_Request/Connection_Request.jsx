@@ -125,8 +125,8 @@ function Connection_Request() {
                             <h6 className="block font-sans text-white text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
                                 {usr.Name}
                             </h6>
-                            <p className="block font-sans text-sm antialiased font-normal leading-normal text-gray-400">
-                                Web Developer
+                            <p className=" max-w-[130px] truncate block font-sans text-sm antialiased font-normal leading-normal text-gray-400">
+                                {usr.Email}
                             </p>
                             </div>
                             <button

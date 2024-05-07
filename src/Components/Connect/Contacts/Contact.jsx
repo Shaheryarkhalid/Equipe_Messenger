@@ -7,7 +7,6 @@ function Contact({usr,Opened_Contact}) {
 
 	let {firestore,auth}=useContext(Database_Context);
 	let Unread_Messages=useCollectionData(firestore.collection("Messages").where("Sender_Id","==",usr.UID).where("Reciever_Id","==",auth.currentUser.uid).where("Read","==",false));
-	console.log(Unread_Messages);
 	return (
 		<div  className={(usr.UID === Opened_Contact ? " bg-slate-600 "  : "" )+ "relative mt-2 flex items-center gap-4 py-2 px-4 border-b border-slate-300 cursor-pointer hover:bg-slate-700 rounded-t-lg"}>
 					<img src={usr.photoUrl} alt="avatar"

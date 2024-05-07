@@ -46,7 +46,7 @@ function Nav_Bar() {
     return (
         <nav className="w-full h-24   bg-slate-800 flex justify-evenly items-center shadow-2xl relative">
             <div className={(Left_Drawer ? "hidden absolute left-0 top-2 w-full self-start justify-self-center " : "hidden " ) + "md:relative h-[85%] md:w-[20%] bg-slate-900 rounded-md md:flex"}> 
-                <img className=" h-full w-full bg-slate-100 object-cover rounded-md" src="src/assets/Logo.jpg"  alt="" />
+                <img className=" h-full w-full bg-slate-100 object-cover rounded-md" src="src/assets/Logo.png"  alt="" />
             </div>
             <div className="h-[85%] w-full md:w-[55%] px-1 flex justify-evenly">
                 <div onClick={()=>set_Left_Drawer(!Left_Drawer)} className="md:hidden h-full w-[10%] flex items-center justify-center">
@@ -64,7 +64,7 @@ function Nav_Bar() {
                     {
                         Uploading_Profile ? <Responsive_Loader /> :
                             <label htmlFor="Profile_Image" className="inline-block relative object-cover object-center w-12 h-12 rounded-lg border-2 border-green-500 p-0.5 cursor-pointer" >
-                                <img  className="" src={auth.currentUser.photoURL? auth.currentUser.photoURL :"https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"}  alt="" />
+                                <img  className=" object-cover w-full h-full rounded-md" src={auth.currentUser.photoURL? auth.currentUser.photoURL :"https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"}  alt="" />
                             </label>
                     }
                     <input
