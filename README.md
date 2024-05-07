@@ -27,6 +27,8 @@ Features:
     - Real-time chat and messaging 
     - Audio and video conferencing 
     - Group chat and discussion forums
+    - Messages pagination
+    - Files Download Progress
     - Responsive and mobile-friendly design 
     - Search and send request to connect
     - Accept request and chat

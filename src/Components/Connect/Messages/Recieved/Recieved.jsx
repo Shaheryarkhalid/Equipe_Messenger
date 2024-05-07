@@ -58,7 +58,7 @@ function Recieved({message}) {
 	}
   return (
 	<div className="flex items-start mt-4 gap-2 relative ">
-		<img className="w-8 h-8 rounded-md" 
+		<img className="w-12 h-12 rounded-md object-cover" 
 			src={ Sender ? ( Sender.photoUrl ? Sender.photoUrl : "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg") : "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" } 
 			alt="Jese image"/>
 		<div className="  h-full min-w-[170px] max-w-[320px] text-wrap leading-1.5 p-2 rounded-e-xl rounded-es-xl dark:bg-slate-800">

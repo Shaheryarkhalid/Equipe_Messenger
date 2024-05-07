@@ -76,7 +76,7 @@ function App() {
           <Database_Context.Provider value={{auth,firestore,StorageBuck}}>
             {
               Incoming && Caller &&
-                <div className="absolute bottom-32 right-36 z-10">
+                <div className="absolute bottom-32 right-36 z-50">
                   <Incoming_Call Caller={Caller} set_Incoming={set_Incoming} set_Caller={set_Caller} Call_Data={Call_Data}/>
                 </div>
             }
@@ -118,7 +118,7 @@ function App() {
           </Database_Context.Provider>
         </View_Context.Provider>
       </BrowserRouter>
-      <audio id="Incoming_Call" controls muted loop className=" w-0 h-0 absolute -z-10">
+      <audio id="Incoming_Call" controls muted loop className=" w-0 h-0 absolute -z-50">
           <source src="src/assets/InComing_Call.m4a"  />
       </audio>  
     </section>
