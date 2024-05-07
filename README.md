@@ -4,13 +4,9 @@ A Full-Featured Chat Messenger with Audio and Video Call Capabilities, A compreh
 Users can enjoy: 
 
 	- Real-time text chat with individuals or groups 
-
 	- High-quality audio and video calls 
-    
 	- File sharing and transfer 
-    
 	- Group chat and discussion forums 
-    
 	- User-friendly interface.
 
 Built with:
@@ -18,8 +14,8 @@ Built with:
 	- Javascript 
  	- React
   	- Tailwind
-	- Font-Awesome 
  	- Firebase 
+	- Font-Awesome 
   	- WebRTC
    
 Aims to provide a robust and scalable communication solution for individuals and teams. 
@@ -34,6 +30,18 @@ Features:
     - Responsive and mobile-friendly design 
     - Search and send request to connect
     - Accept request and chat
+    - Remove / unfriend connection
+    - Create team
+    - Add memebers in team (If Creator)
+    - Remove memebers from team (If Creator)
+    - View members (Wether Admin or Not)
+    - Leave team
+	- All kind of files grouped together in Team Chat
+	- Message timestamp
+	- Ability to share Images, Videos and Files
+	- Ability to view Images in app without downloading 
+	- Ability to play Videos in app without downloading 
+	- Ability to change Profile image
 
 To get started with ChatMax, simply clone the repository, install the dependencies, and run the application.For more information, please refer to the documentation and contributing guidelines. 
 
