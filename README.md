@@ -1,4 +1,4 @@
-![Home_Page](https://github.com/Shaheryarkhalid/Equipe_Messenger/assets/41621149/272058c0-8ba5-4f02-9ee0-8cd1a55787f3)
+![Home_Page](https://github.com/Shaheryarkhalid/Equipe_Messenger/assets/41621149/4ec43431-a6aa-49da-b1be-386b5eef8d50)
 
 # Equipe_Messenger
 A Full-Featured Chat Messenger with Audio and Video Call Capabilities, A comprehensive chat messenger platform that offers a wide range of features for seamless communication. 
