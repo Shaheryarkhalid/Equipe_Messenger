@@ -27,19 +27,12 @@ Aims to provide a robust and scalable communication solution for individuals and
 Features: 
 
     - User authentication and authorization 
-	
     - File sharing and transfer  
-	
     - Real-time chat and messaging 
-	
     - Audio and video conferencing 
-	
     - Group chat and discussion forums
-	
     - Responsive and mobile-friendly design 
-	
     - Search and send request to connect
-	
     - Accept request and chat
 
 To get started with ChatMax, simply clone the repository, install the dependencies, and run the application.For more information, please refer to the documentation and contributing guidelines. 
@@ -47,58 +40,44 @@ To get started with ChatMax, simply clone the repository, install the dependenci
 Dependencies:  
 
 	- Build Tool: Vite
- 
 	- Package Manager: Npm
-	
 	- Design Tool: Tail-Wind CSS
-	
 	- React v_18.2.0
- 
 	- React-Dom v_18.2.0
- 
 	- react-router-dom v_6.22.3	
- 
 	- firebase v_10.9.0
- 
 	- react-firebase-hooks v_5.1.1
-
 	- font-awesome: v_6.0.0
-
  	- plugin-basic-ssl: v_1.1.0
-			
 	- emoji-picker-react v_4.9.2		
-	
 	- lodash.throttle v_4.1.1
-	
 	- uuid v_9.0.1
-   Dev Command:
-   
+Dev Command:
+
 	npm run dev
-   Build Command:
- 
-   	npm run build
+Build Command:
 
-Database Setup Guideline:
-	Create firebase account and add new project. Get following keys from firebase:
+	npm run build
 
-		- apiKey
-		- authDomain
-		- projectId
-		- storageBucket
-		- messagingSenderId
-		- appId
-		- measurementId
+Database Setup Guideline:	Create firebase account and add new project. Get following keys from firebase:
 
-.env Setup Guideline:
-	Now setup environment variables in .env named just like below:
+	- apiKey
+	- authDomain
+	- projectId
+	- storageBucket
+	- messagingSenderId
+	- appId
+	- measurementId
 
-		- VITE_apiKey
-		- VITE_authDomain
-		- VITE_projectId
-		- VITE_storageBucket
-		- VITE_messagingSenderId
-		- VITE_appId
-		- VITE_measurementId
+.env Setup Guideline:	Now setup environment variables in .env named just like below:
+
+	- VITE_apiKey
+	- VITE_authDomain
+	- VITE_projectId
+	- VITE_storageBucket
+	- VITE_messagingSenderId
+	- VITE_appId
+	- VITE_measurementId
 
 Contributing:  
     Equipe_Messenger is an open-source project, and we welcome contributions from the community. If you're interested in contributing, please submit a pull request or open an issue to discuss your ideas.
