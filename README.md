@@ -20,7 +20,7 @@ Built with:
   	- Tailwind
 	- Font-Awesome 
  	- Firebase 
-  	- WebRTC]
+  	- WebRTC
    
 Aims to provide a robust and scalable communication solution for individuals and teams. 
 
@@ -76,6 +76,29 @@ Dependencies:
 	npm run dev
    Build Command:
  
-   	npm run build 
+   	npm run build
+
+Setup GuideLine:
+	Database Setup:
+		Create firebase account and add new project. Get following keys from firebase:
+
+			- apiKey
+			- authDomain
+			- projectId
+			- storageBucket
+			- messagingSenderId
+			- appId
+			- measurementId
+	.env Setup:
+		Now setup environment variables in .env named just like below:
+
+			- VITE_apiKey
+			- VITE_authDomain
+			- VITE_projectId
+			- VITE_storageBucket
+			- VITE_messagingSenderId
+			- VITE_appId
+			- VITE_measurementId
+
 Contributing:  
     Equipe_Messenger is an open-source project, and we welcome contributions from the community. If you're interested in contributing, please submit a pull request or open an issue to discuss your ideas.
