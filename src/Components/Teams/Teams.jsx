@@ -3,17 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { Database_Context } from '../../App';
 import { View_Context } from '../../App';
 import { signOut } from 'firebase/auth';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import {useCollectionData} from "react-firebase-hooks/firestore"
 import Create_Team from './Create_Team/Create_Team';
 import Teams_Display from './Teams_Display/Teams_Display';
 import Team_Chat from './Team_Chat/Team_Chat';
 import Team_Files from "./Team_Files/Team_Files"
 import Responsive_Loader from '../Loading/Responsive_Loader';
+import { v4 } from 'uuid';
 
 function Teams() {
 	let [Create_Team_Popup_Modal,set_Create_Team_Popup_Modal] =useState(false);
 	let [Opened_Team,set_Opened_Team]=useState("");
-	let {firestore,auth}=useContext(Database_Context);
+  let [Uploading_Profile,set_Uploading_Profile]=useState(false);
+	let {firestore,auth,StorageBuck}=useContext(Database_Context);
 	let {Left_Drawer,set_Left_Drawer}=useContext(View_Context);
 	let [Unsorted_Created_Teams]=useCollectionData(firestore.collection("Teams").where("Created_By","==",auth.currentUser.uid));
 	let [Unsorted_Member_of_Teams]=useCollectionData(firestore.collection("Teams").where("Members","array-contains",auth.currentUser.uid));
@@ -52,6 +55,27 @@ function Teams() {
 		
 	},[Unsorted_Created_Teams,Unsorted_Member_of_Teams])
 
+  function Handle_Profile_Image_Change(e)
+  {
+      set_Uploading_Profile(true);
+      if(e.target.files[0])
+          {
+          let file=e.target.files[0]
+          const fileRef=ref(StorageBuck, file.name.split(".")[0] +  "_" + v4()+ "." + file.name.split(".")[1]);
+          uploadBytes(fileRef, file).then((File_Data)=>{
+              getDownloadURL(File_Data.ref).then((url)=>{
+                  auth.currentUser.updateProfile({ photoURL: url }).then(()=> {
+                       firestore.collection("Users").where("UID","==",auth.currentUser.uid).get().then((QuerySnap)=>{
+                           QuerySnap.docs[0].ref.update({
+                               photoUrl:url
+                           })
+                           set_Uploading_Profile(false);
+                       })
+                  })
+              });
+          })
+      }
+  }
 	function Sign_Out()
 	{
 		signOut(auth).then(() => {
@@ -90,8 +114,16 @@ function Teams() {
             }
             <div className={ " pt-5 w-3/4 md:hidden  bg-slate-900  rounded-md flex items-center justify-center"}>
                 <div className=" h-full flex flex-row items-center">
-                    <img  className="inline-block relative object-cover object-center w-12 h-12 rounded-lg border-2 border-green-500 p-0.5 cursor-pointer" src={auth.currentUser.photoURL? auth.currentUser.photoURL :"https://docs.material-tailwind.com/img/face-2.jpg"}  alt="" />
-                    <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                    {
+                        Uploading_Profile ? <Responsive_Loader /> :
+                            <label htmlFor="Profile_Image" className="inline-block relative object-cover object-center w-12 h-12 rounded-lg border-2 border-green-500 p-0.5 cursor-pointer" >
+                                <img  className=" object-cover w-full h-full rounded-md" src={auth.currentUser.photoURL? auth.currentUser.photoURL :"https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"}  alt="" />
+                            </label>
+                    }
+                    <input
+                         onChange={Handle_Profile_Image_Change}
+                         id="Profile_Image" type="file" accept="image/*" className="hidden" />
+                    <div className="px-4 py-3 text-sm text-white">
                        <div>{auth.currentUser.displayName}</div>
                         <div className="font-medium truncate">{auth.currentUser.email}</div>
                     </div>

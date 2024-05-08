@@ -9,7 +9,7 @@ import Search_Person from "./Search Person/Search_Person.jsx";
 import Connection_Request from "./Connection_Request/Connection_Request.jsx";
 import Message from "./Messages/Message.jsx";
 import Responsive_Loader from "../Loading/Responsive_Loader.jsx";
-
+import { uploadBytes,ref, getDownloadURL } from "firebase/storage";
 
 function Connect() {
 	let [Search_Results,setSearch_Results]=useState(null);
@@ -21,7 +21,8 @@ function Connect() {
 	let [Loading_Chats,set_Loading_Chats]=useState(false);
 	let [Opened_Contact,set_Opened_Contact]=useState("");
 	let [Display_Chat,set_Display_Chat]=useState(true);
-	let {auth,firestore}=useContext(Database_Context);
+    let [Uploading_Profile,set_Uploading_Profile]=useState(false);
+	let {auth,firestore,StorageBuck}=useContext(Database_Context);
 	let {Left_Drawer, set_Left_Drawer}=useContext(View_Context);
 	let navigate=useNavigate();
 	const search_Person = useRef("")
@@ -110,6 +111,27 @@ function Connect() {
 			}
 		});
 	} 
+	function Handle_Profile_Image_Change(e)
+    {
+        set_Uploading_Profile(true);
+        if(e.target.files[0])
+            {
+            let file=e.target.files[0]
+            const fileRef=ref(StorageBuck, file.name.split(".")[0] +  "_" + v4()+ "." + file.name.split(".")[1]);
+            uploadBytes(fileRef, file).then((File_Data)=>{
+                getDownloadURL(File_Data.ref).then((url)=>{
+                    auth.currentUser.updateProfile({ photoURL: url }).then(()=> {
+                         firestore.collection("Users").where("UID","==",auth.currentUser.uid).get().then((QuerySnap)=>{
+                             QuerySnap.docs[0].ref.update({
+                                 photoUrl:url
+                             })
+                             set_Uploading_Profile(false);
+                         })
+                    })
+                });
+            })
+        }
+    }
 	function Sign_Out()
 	{
 		signOut(auth).then(() => {
@@ -146,12 +168,12 @@ function Connect() {
 			</div>
 			<div className=" md:hidden p-2 w-full bg-slate-600 flex justify-evenly">
 				<button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-blue-800" >
-					<span onClick={()=>set_Display_Chat(false)} className={(!Display_Chat ? "" : "bg-white dark:bg-gray-900 ") + "relative px-5 py-2.5 transition-all ease-in duration-75  bg-opacity-0 rounded-md"}>
+					<span onClick={()=>set_Display_Chat(false)} className={(!Display_Chat ? "" : " bg-gray-900 ") + "relative px-5 py-2.5 transition-all ease-in duration-75  bg-opacity-0 rounded-md"}>
 						All Connections
 					</span>
 				</button>
-				<button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-				<span onClick={()=>set_Display_Chat(true)}  className={(Display_Chat ? "" : "bg-white dark:bg-gray-900 ") + "relative px-5 py-2.5 transition-all ease-in duration-75  bg-opacity-0 rounded-md"}>
+				<button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-blue-800">
+				<span onClick={()=>set_Display_Chat(true)}  className={(Display_Chat ? "" : " bg-gray-900 ") + "relative px-5 py-2.5 transition-all ease-in duration-75  bg-opacity-0 rounded-md"}>
 					Chats
 				</span>
 				</button>
@@ -160,7 +182,7 @@ function Connect() {
             	<h1 className="w-full text-center sticky top-[0] p-3 text-md font-bold text-white bg-slate-700 z-10 ">All Connections</h1>
 				<div className=" w-full h-full overflow-auto flex flex-col px-2">
 					{
-						Loading_Contacts && !Contacts &&
+						Loading_Contacts && 
 							<div className=" absolute top-1/4">
 								<Responsive_Loader  />
 							</div>
@@ -216,9 +238,9 @@ function Connect() {
                       <div className=" w-full h-full overflow-auto flex flex-col px-2">
                           {
                             Loading_Contacts &&
-                            <div className=" absolute top-1/4">
-                              <Responsive_Loader  />
-                            </div>
+								<div className=" absolute top-1/4 z-10">
+									<Responsive_Loader  />
+								</div>
                           } 
                           {
                             (Contacts && Contacts.length > 0) &&
@@ -241,8 +263,17 @@ function Connect() {
               }
               <div className={ " w-3/4  bg-slate-900 rounded-md flex items-center justify-center md:flex"}>
                 <div className=" h-full flex flex-row items-center">
-                    <img  className="inline-block relative object-cover object-center w-12 h-12 rounded-lg border-2 border-green-500 p-0.5 cursor-pointer" src={auth.currentUser.photoURL? auth.currentUser.photoURL :"https://docs.material-tailwind.com/img/face-2.jpg"}  alt="" />
-                    <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+					{
+                        Uploading_Profile ? <Responsive_Loader /> :
+                            <label htmlFor="Profile_Image" className="inline-block relative object-cover object-center w-12 h-12 rounded-lg border-2 border-green-500 p-0.5 cursor-pointer" >
+                                <img  className=" object-cover w-full h-full rounded-md" src={auth.currentUser.photoURL? auth.currentUser.photoURL :"https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"}  alt="" />
+                            </label>
+                    }
+
+					<input
+                         onChange={Handle_Profile_Image_Change}
+                         id="Profile_Image" type="file" accept="image/*" className="hidden" />
+					<div className="px-4 py-3 text-sm text-white">
                        <div>{auth.currentUser.displayName}</div>
                         <div className="font-medium truncate">{auth.currentUser.email}</div>
                     </div>

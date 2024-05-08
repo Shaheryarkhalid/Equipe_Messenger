@@ -82,7 +82,7 @@ function Shared_Files({message}) {
 														href="#"
 														onClick={()=>Handle_File_Download(message.Message)}
 														className="inline-flex self-center items-center p-2 text-sm font-medium text-center  rounded-lg focus:ring-4 focus:outline-none text-whitbg-gray-600 hover:bg-gray-500 focus:ring-gray-600 cursor-pointer">
-														<svg className="w-4 h-4 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+														<svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
 															<path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
 															<path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
 														</svg>    
@@ -99,7 +99,7 @@ function Shared_Files({message}) {
 											}
 									</div>
 								</div>
-								<div className="  pr-3 flex justify-between w-full text-xs font-normal text-gray-500 dark:text-gray-400 gap-2">
+								<div className="  pr-3 flex justify-between w-full text-xs font-normal text-gray-400 gap-2">
 									{
 										formatBytes(message.Message.Size)
 									}
@@ -118,7 +118,7 @@ function Shared_Files({message}) {
 										{    !File_Downloading ?
 												<button 
 													onClick={()=>Handle_File_Download(message.Message)}
-													data-tooltip-target="download-image-1" className="inline-flex items-center justify-center rounded-full h-8 w-8 bg-white/30 hover:bg-white/50 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50">
+													data-tooltip-target="download-image-1" className="inline-flex items-center justify-center rounded-full h-8 w-8 bg-white/30 hover:bg-white/50 focus:ring-4 focus:outline-none text-white focus:ring-gray-50">
 													<svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
 														<path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"/>
 													</svg>
@@ -144,7 +144,7 @@ function Shared_Files({message}) {
 										<>
 											<video controls src={message.Message.Download_URL} className="rounded-lg min-h-[170px] max-h-[320px]  min-w-[170px] max-w-[320px] "> 
 											</video>
-											<div className=" mt-5 min-w-[170px] max-w-[150px] pr-5 flex justify-between w-full text-xs font-normal text-gray-500 dark:text-gray-400">
+											<div className=" mt-5 min-w-[170px] max-w-[150px] pr-5 flex justify-between w-full text-xs font-normal text-gray-400">
 												{
 													formatBytes(message.Message.Size)
 												}
@@ -158,7 +158,7 @@ function Shared_Files({message}) {
 										:
 										<>
 											<img src={message.Message.Download_URL} className="rounded-lg min-h-[170px] max-h-[320px]  min-w-[170px] max-w-[320px] " />
-											<div className=" mt-5 min-w-[170px] max-w-[150px]  pr-6 flex justify-between w-full text-xs font-normal text-gray-500 dark:text-gray-400">
+											<div className=" mt-5 min-w-[170px] max-w-[150px]  pr-6 flex justify-between w-full text-xs font-normal text-gray-400">
 												{
 													formatBytes(parseInt(message.Message.Size))
 												}

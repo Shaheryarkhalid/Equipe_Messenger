@@ -26,9 +26,12 @@ function Team_Chat({Opened_Team, set_Opened_Team}) {
     let [Uploading, set_Uploading]=useState(false);
     let [Open_Image,set_Open_Image]=useState(false);
     let [Emoji_Picker,set_Emoji_Picker]=useState(false);
+    let [Changing_Team_Image,set_Changing_Team_Image]=useState(false);
+    let [Temp_Image,set_Temp_Image]=useState();
     let Scroll_Older_Messages=useRef(null);
     let viewScroller = useRef(); 
     let {auth,firestore,StorageBuck}=useContext(Database_Context);
+    // let [Result,set_Result]=useState();
     let [Result]=useCollectionData(firestore.collection("Team_Chat").where("Team_ID","==",Opened_Team.TID));
 
     useEffect(()=>{
@@ -193,7 +196,28 @@ function Team_Chat({Opened_Team, set_Opened_Team}) {
             set_Opened_Team(null);
         })
     }
-
+    function Handle_Team_Image_Change(e)
+    {
+        set_Changing_Team_Image(true);
+        if(e.target.files[0])
+            {
+            let file=e.target.files[0]
+            const fileRef=ref(StorageBuck, file.name.split(".")[0] +  "_" + v4()+ "." + file.name.split(".")[1]);
+            uploadBytes(fileRef, file).then((File_Data)=>{
+                getDownloadURL(File_Data.ref).then((url)=>{
+                    firestore.collection("Teams").where("TID","==",Opened_Team.TID).get().then((QuerySnap)=>{
+                        QuerySnap.docs[0].ref.update({
+                            Photo_URL:url
+                        })
+                        set_Changing_Team_Image(false);
+                        firestore.collection("Teams").where("TID","==",Opened_Team.TID).get().then(() => {
+                            set_Temp_Image(url);
+                        })
+                    })
+                })
+            })
+        }
+    }
   return (
     <>
         { Add_Member_Toogle &&    <Add_Member set_Add_Member_Toogle={set_Add_Member_Toogle} Opened_Team={Opened_Team} />}
@@ -204,13 +228,39 @@ function Team_Chat({Opened_Team, set_Opened_Team}) {
                 { !Opened_Team && <Responsive_Loader />}
                 {Opened_Team &&
                     <>
-                        <img src={Opened_Team.Photo_URL} 
-                            onClick={()=>set_Open_Image(Opened_Team.Photo_URL)}
-                            alt="avatar"
-                            className="relative inline-block object-cover object-center w-12 h-12 rounded-lg cursor-pointer" />
+                        <div className=" max-w-12">
+                            {
+                                
+                                !Changing_Team_Image ? 
+                                    <>
+                                        {Opened_Team && Opened_Team.Created_By === auth.currentUser.uid ?
+                                            <label htmlFor="Team_Image" className="inline-block relative object-cover object-center w-12 h-12 rounded-lg p-0.5 cursor-pointer" >
+                                                    <img src={Temp_Image ? Temp_Image : Opened_Team.Photo_URL} 
+                                                        alt="avatar"
+                                                        className="object-cover w-full h-full rounded-md" />
+                                            </label>
+                                            :
+                                            <img src={Opened_Team.Photo_URL} 
+                                                onClick={()=>set_Open_Image(Opened_Team.Photo_URL)}
+                                                alt="avatar"
+                                                className="object-cover w-12 h-12 rounded-md cursor-pointer" />
+                                        }
+                                    </>
+                                :
+                                <Responsive_Loader />
+                            }
+                        </div>
+                        <input
+                         onChange={Handle_Team_Image_Change}
+                         id="Team_Image" type="file" accept="image/*" className="hidden" />
+                        
                         <div>
                             <h6 className="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
                                 {Opened_Team.Name}
+                                {
+                                    Opened_Team && Opened_Team.Created_By === auth.currentUser.uid && 
+                                        <span className=" ml-2 text-xs text-slate-400" >(Creator)</span>
+                                }
                             </h6>
                             <p className="block font-sans text-sm antialiased font-normal leading-normal text-gray-400">
                                 {Opened_Team.Objective}
@@ -233,9 +283,9 @@ function Team_Chat({Opened_Team, set_Opened_Team}) {
             </div>
         </div>
         <div 
-           	ref={Scroll_Older_Messages}
-           	onScroll={Handle_Scroll_Older_Messages} 
-       		className="w-full h-[75%] bg-slate-500 overflow-auto p-4 flex flex-col ">
+            ref={Scroll_Older_Messages}
+            onScroll={Handle_Scroll_Older_Messages} 
+            className="w-full h-[75%] bg-slate-500 overflow-auto p-4 flex flex-col ">
             {
                     is_ALL && 
                     <span className=" w-3/5 p-3 bg-slate-400 self-center text-gray-200 rounded-lg text-center">That&apos;s all of your chat. </span>

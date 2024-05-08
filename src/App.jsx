@@ -45,10 +45,10 @@ function App() {
                 set_Incoming(true);
                 set_Caller(usr.docs[0].data());
               });
-
+              
             }
           }
-      })
+        })  
     })
     auth.currentUser && firestore.collection("Calls").where("Reciever_ID","==", auth.currentUser.uid).where("Answered","==",false).where("Rejected","==",false).onSnapshot((Call_Doc)=>{
       Call_Doc.docs && Call_Doc.docs.map((doc)=>{
@@ -63,7 +63,6 @@ function App() {
                 set_Incoming(true);
                 set_Caller(usr.docs[0].data());
               });
-
             }
           }
       })

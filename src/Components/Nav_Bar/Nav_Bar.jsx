@@ -70,7 +70,7 @@ function Nav_Bar() {
                     <input
                          onChange={Handle_Profile_Image_Change}
                          id="Profile_Image" type="file" accept="image/*" className="hidden" />
-                    <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                    <div className="px-4 py-3 text-sm text-white">
                        <div className=" truncate max-w-[130px]">{auth.currentUser.displayName}</div>
                         <div className="font-medium truncate max-w-[130px]">{auth.currentUser.email}</div>
                     </div>

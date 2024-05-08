@@ -49,12 +49,12 @@ function Members_Viewer({set_View_Members,Opened_Team}) {
             <div className="relative p-4 w-full max-h-full flex items-center justify-center ">
                 <div className="relative bg-gray-900 rounded-md">
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
-                        <h3 className=" mr-4 text-lg font-semibold text-gray-900 dark:text-white">
+                        <h3 className=" mr-4 text-lg font-semibold text-white">
                             Memebers
                         </h3>
                         <button
                             onClick={()=>set_View_Members(false)}
-                            type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
+                            type="button" className="text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white" data-modal-toggle="crud-modal">
                             <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                             </svg>
@@ -66,9 +66,9 @@ function Members_Viewer({set_View_Members,Opened_Team}) {
                     Team_Members.map((usr)=>{
                         return(
                             <>
-                                    <div className="flex items-center ps-2 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 ">
+                                    <div className="flex items-center ps-2 px-2 py-1 rounded hover:bg-gray-600 ">
                                         <img src={usr.photoUrl} alt="avatar" className="relative inline-block object-cover object-center w-8 h-8 rounded-full" />
-                                        <div className="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300 flex">
+                                        <div className="w-full py-2 ms-2 text-sm font-medium rounded text-gray-300 flex">
                                             {usr.Name}
                                             {
                                                 usr.UID ===  Opened_Team.Created_By &&
