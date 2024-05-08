@@ -46,11 +46,18 @@ function Signin() {
 			setSigning(false);
 		}
 	}
+	function Signin_For_Testing(email,password="Admin1234")
+	{
+		setEmail(email);
+		setPassword(password);
+	}
   return (
 	<section className="bg-slate-500 h-screen flex justify-center items-center">
-        <div className="flex h-full md:h-[450px] md:w-[480px] w-full flex-col justify-center px-6 py-12 lg:px-8 bg-slate-700 rounded-md">
+		{/* .......... Change  md:h-[500px]  to  md:h-[450px] for better experience .......... */}
+        <div className="flex h-full md:h-[500px] md:w-[480px] w-full flex-col justify-center px-6 py-12 lg:px-8 bg-slate-700 rounded-md">
+			
 			<div className="sm:mx-auto sm:w-full sm:max-w-sm">
-			<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-200">Sign in to continue</h2>
+				<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-200">Sign in to continue</h2>
 			</div>
 			<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 				<form onSubmit={HandleSubmit} className="space-y-6" action="#" method="POST">
@@ -78,6 +85,15 @@ function Signin() {
 						</div>
 					</div>
 					<span className="text-red-600 h-2 flex items-center justify-center">{ErrorLog}</span>
+					{/* ------------------For Testing Only-------------------- */}
+					<div className=" w-full flex flex-col">
+						<p className="w-full text-center text-slate-300">For Testing Signin as</p>
+						<div className="w-full flex justify-evenly">
+							<button className="flex w-1/3 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={()=>Signin_For_Testing("ErikKaiser@dayrep.com")}>User 1</button>
+							<button className="flex w-1/3 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={()=>Signin_For_Testing("maisiebarry@teleworm.us")}>User 2</button>
+						</div>
+					</div>
+
 					<div>
 						{Signing? 
 						<div className="flex items-center justify-center w-full border rounded-lg bg-gray-800 border-gray-700">
