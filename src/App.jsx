@@ -1,11 +1,19 @@
-import { createContext, useEffect,useState } from "react"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import {Nav_Bar, Connect, Teams, Signin, Signup, Loader, P404, Incoming_Call, Audio_Call, Video_Call } from "./Components"
+import { Suspense, createContext, useEffect,useState } from "react"
+import { BrowserRouter, Routes, Route} from "react-router-dom"
+import {Nav_Bar, Connect, Signin, Loader, Responsive_Loader } from "./Components"
 import firebase from "firebase/compat/app"
 import 'firebase/compat/firestore'
 import 'firebase/compat/auth'
 import 'firebase/compat/storage'
 import {useAuthState} from 'react-firebase-hooks/auth'
+import { lazy } from "react"
+
+let Teams = lazy(()=>import("./Components/Teams/Teams"));
+let P404 = lazy(()=> import("./Components/404/404"));
+let Incoming_Call = lazy(()=> import("./Components/Incoming_Call/Incoming_Call"))
+let Audio_Call = lazy(()=> import("./Components/Connect/Audio_Call/Audio_Call"))
+let Video_Call = lazy(()=> import("./Components/Connect/Video_Call/Video_Call"))
+let Signup = lazy(()=> import("./Components/Signup/Signup"))
 
 firebase.initializeApp({
   apiKey: import.meta.env.VITE_apiKey,
@@ -75,11 +83,13 @@ function App() {
           <Database_Context.Provider value={{auth,firestore,StorageBuck}}>
             {
               Incoming && Caller &&
-                <div className="absolute bottom-32 right-36 z-50">
-                  <Incoming_Call Caller={Caller} set_Incoming={set_Incoming} set_Caller={set_Caller} Call_Data={Call_Data}/>
+                <div className="absolute bottom-32 right-36 z-50">              
+                 <Suspense fallback={<Responsive_Loader/>}>
+                    <Incoming_Call Caller={Caller} set_Incoming={set_Incoming} set_Caller={set_Caller} Call_Data={Call_Data}/>
+                  </Suspense>
                 </div>
             }
-            {Loading&&
+            {Loading &&
               <Loader />
             }
         
@@ -87,8 +97,8 @@ function App() {
               {!Loading && !SignedInUser&& 
                 <>
                   <Route path='*' element={<P404 />}/>
-                  <Route path="/" element={<Signin/>} />
                   <Route path="/Signup" element={<Signup/>} />
+                  <Route path="/" element={<Signin/>} />
                 </>
               }
               { !Loading && SignedInUser &&
@@ -100,15 +110,26 @@ function App() {
                     path="*"
                     element={
                       <>
-                          <Nav_Bar />
-                          <div className="h-[calc(100vh-96px)] w-full overflow-auto">
+                        <Nav_Bar />
+                        <div className="h-[calc(100vh-96px)] w-full overflow-auto">
+                          <Suspense fallback={<Responsive_Loader/>}>
                             <Routes>
                               <Route path="/" element={<Connect />} />
-                              <Route path="/Teams" element={<Teams />} />
-                              <Route path='*' element={<P404 />}/>
+                              <Route path="/Teams" 
+                                element={
+                                  <Suspense fallback={<Responsive_Loader />}>
+                                    <Teams/>
+                                  </Suspense>
+                                } />
+                              <Route path='*' element={
+                                <Suspense fallback={<Responsive_Loader />}>
+                                  <P404 />
+                                </Suspense>
+                                }/>
                             </Routes>
-                          </div>
-                        </>
+                          </Suspense>
+                        </div>
+                      </>
                       } />
                   </>
                 )

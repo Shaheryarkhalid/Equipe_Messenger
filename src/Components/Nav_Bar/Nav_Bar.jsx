@@ -6,6 +6,7 @@ import { signOut } from "firebase/auth";
 import {  ref, uploadBytes, getDownloadURL} from "firebase/storage";
 import Responsive_Loader from "../Loading/Responsive_Loader.jsx";
 import { v4 } from "uuid";
+import Logo from "../../assets/Logo.png"
 
 function Nav_Bar() {
     let navigate= new useNavigate();
@@ -46,7 +47,7 @@ function Nav_Bar() {
     return (
         <nav className="w-full h-24   bg-slate-800 flex justify-evenly items-center shadow-2xl relative">
             <div className={(Left_Drawer ? "hidden absolute left-0 top-2 w-full self-start justify-self-center " : "hidden " ) + "md:relative h-[85%] md:w-[20%] bg-slate-900 rounded-md md:flex"}> 
-                <img className=" h-full w-full bg-slate-100 object-cover rounded-md" src="src/assets/Logo.png"  alt="" />
+                <img className=" h-full w-full bg-slate-100 object-cover rounded-md" src={Logo}  alt="" />
             </div>
             <div className="h-[85%] w-full md:w-[55%] px-1 flex justify-evenly">
                 <div onClick={()=>set_Left_Drawer(!Left_Drawer)} className="md:hidden h-full w-[10%] flex items-center justify-center">
