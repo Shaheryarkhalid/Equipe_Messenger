@@ -14,7 +14,7 @@ import { uploadBytes,ref, getDownloadURL } from "firebase/storage";
 function Connect() {
 	let [Search_Results,setSearch_Results]=useState(null);
 	let [Search_Error,set_Search_Error]=useState("");
-	let [Contacts,setContacts]=useState([]);
+	let [Contacts,setContacts]=useState(null);
 	let [Loading_Contacts,set_Loading_Contacts]=useState(false);
 	let [Loading_Messages]=useState(false);
 	let [Chats,set_Chats]=useState([]);
@@ -43,9 +43,9 @@ function Connect() {
 			}
 			Snap.docs[0].data().Friends.map((friend)=>{
 				firestore.collection("Users").where("UID","==",friend).get().then((QuerySnap)=>{
-					set_Loading_Contacts(false);
 					setContacts([...temp , QuerySnap.docs[0].data()]); 
 					temp.push(QuerySnap.docs[0].data())
+					Contacts && Contacts.length > 0 && set_Loading_Contacts(false);
 				})
 			})
 		});
@@ -188,20 +188,20 @@ function Connect() {
 							</div>
 					} 
 					{
-					(Contacts && Contacts.length > 0) &&
-						Contacts.map((usr)=>{
-						return(
-							<>
-								<button onClick={()=>set_Opened_Contact(usr.UID)} >
-									<Contact key={usr.id}  usr={usr} Opened_Contact={Opened_Contact} />
-								</button>
-							</>
-						)
-						})
+						Contacts && Contacts.length > 0 &&
+							Contacts.map((usr)=>{
+								return(
+									<>
+										<button onClick={()=>set_Opened_Contact(usr.UID)} >
+											<Contact key={usr.id}  usr={usr} Opened_Contact={Opened_Contact} />
+										</button>
+									</>
+								)
+							})
 					}
 					{
-					!Loading_Contacts && Contacts && Contacts.length === 0 &&
-						<span className=" w-full text-center mt-5 text-red-500" >No Connections</span>        
+						!Loading_Contacts && Contacts && Contacts.length === 0 &&
+							<span className=" w-full text-center mt-5 text-red-500" >No Connections</span>        
 					}
 				</div>
             </div>
