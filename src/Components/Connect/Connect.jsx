@@ -10,6 +10,7 @@ import Connection_Request from "./Connection_Request/Connection_Request.jsx";
 import Message from "./Messages/Message.jsx";
 import Responsive_Loader from "../Loading/Responsive_Loader.jsx";
 import { uploadBytes,ref, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
 
 function Connect() {
 	let [Search_Results,setSearch_Results]=useState(null);
@@ -143,7 +144,7 @@ function Connect() {
 
   return (
     <div className="h-[calc(100vh-96px)]  w-full flex justify-evenly items-center bg-slate-800 relative">
-    	<div className={(Left_Drawer?"flex ": "hidden")+" absolute top-0 left-0 z-20 md:relative w-full h-[98%]  md:w-[20%] pt-8 bg-slate-900 overflow-auto shadow-xl rounded-lg md:flex flex-col items-center"}>
+		<div className={(Left_Drawer?"flex ": "hidden")+" absolute top-0 left-0 z-20 md:relative w-full h-[98%]  md:w-[20%] pt-8 bg-slate-900 overflow-auto shadow-xl rounded-lg md:flex flex-col items-center"}>
 			<div  className="w-full px-4 flex flex-col justify-center relative">
 				<div  >
 					<input
@@ -179,7 +180,7 @@ function Connect() {
 				</button>
 			</div>
             <div className="hidden w-full h-full mt-5  bg-slate-800 relative overflow-auto md:flex flex-col items-center">
-            	<h1 className="w-full text-center sticky top-[0] p-3 text-md font-bold text-white bg-slate-700 z-10 ">All Connections</h1>
+				<h1 className="w-full text-center sticky top-[0] p-3 text-md font-bold text-white bg-slate-700 z-10 ">All Connections</h1>
 				<div className=" w-full h-full overflow-auto flex flex-col px-2">
 					{
 						Loading_Contacts && 

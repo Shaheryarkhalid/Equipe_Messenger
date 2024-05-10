@@ -34,24 +34,25 @@ function Teams() {
 		let Latest=0;  
 		if(Unsorted_Created_Teams && Unsorted_Created_Teams.length > 0 ) Temp = Temp.concat(Unsorted_Created_Teams);
 		if(Unsorted_Member_of_Teams && Unsorted_Member_of_Teams.length > 0 ) Temp = Temp.concat(Unsorted_Member_of_Teams);
+    Unsorted_Created_Teams && Unsorted_Created_Teams.length === 0 && Unsorted_Member_of_Teams && Unsorted_Member_of_Teams.length === 0 && set_Chat([]);
 		Temp.length > 0 && Temp.map((team)=>{
-		firestore.collection("Team_Chat").where("Team_ID","==",team.TID).orderBy("Created_At", "desc").limit(1).onSnapshot((chat)=>{
-			if(chat.docs[0])
-			{
-			let x=new Date(chat.docs[0].data().Created_At.seconds * 1000);
-			if(x > Latest)
-			{
-				Latest=x;
-				Has_Chat.unshift(team);
-			}else{
-				Has_Chat.push(team);
-			}
-			}else{
-			Without_Chat.push(team);
-			}
-			set_Chat([...new Set(Has_Chat.concat(Without_Chat))]);
-		})
-		})
+      firestore.collection("Team_Chat").where("Team_ID","==",team.TID).orderBy("Created_At", "desc").limit(1).onSnapshot((chat)=>{
+        if(chat.docs[0])
+        {
+          let x=new Date(chat.docs[0].data().Created_At.seconds * 1000);
+            if(x > Latest)
+            {
+              Latest=x;
+              Has_Chat.unshift(team);
+            }else{
+              Has_Chat.push(team);
+            }
+        }else{
+          Without_Chat.push(team);
+        }
+        set_Chat([...new Set(Has_Chat.concat(Without_Chat))]);
+      })
+	  })
 		
 	},[Unsorted_Created_Teams,Unsorted_Member_of_Teams])
 
@@ -96,6 +97,9 @@ function Teams() {
             
             {!Chat && 
               <Responsive_Loader />
+            }
+            {Chat && Chat.length ===0 &&
+                <span className=" w-full text-center mt-5 text-red-500" >No Teams to show </span>   
             }
             {Chat && Chat.length>0 &&
               <>
