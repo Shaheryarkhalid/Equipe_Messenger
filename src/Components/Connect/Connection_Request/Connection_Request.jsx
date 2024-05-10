@@ -84,7 +84,6 @@ function Connection_Request() {
             })
         })  
     }
-    console.log(Request_Open);
     return (
         <div className="w-full flex flex-col items-center justify-center p-2 bg-gray-700 rounded-md relative" >
             <button onClick={()=>{set_Request_Open(!Request_Open); Handle_Requests()}}  id="dropdownUsersButton" data-dropdown-toggle="dropdownUsers" data-dropdown-placement="bottom" className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800 relative" type="button">

@@ -30,7 +30,6 @@ function Search_Person(Search_Results) {
 					Sent_Invites: firebase.firestore.FieldValue.arrayUnion(UID)
 				}).then(()=>{
 					setSendingRequest(false);
-					console.log(SendingRequest)
 				})
 			});
 		});

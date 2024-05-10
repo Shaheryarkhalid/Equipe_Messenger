@@ -368,12 +368,12 @@ function Message({Opened_Contact,set_Opened_Contact}) {
                         return(
                             message.Sender_Id == auth.currentUser.uid ? (
                                 <>
-                                    <Sent key={message.id} message={message} />
+                                    <Sent key={message.Sender_Id} message={message} />
 
                                 </>
                             )
                             :
-                                <Recieved key={message.id} message={message} />
+                                <Recieved key={message.Sender_Id} message={message} />
                         )
                     })
                 }

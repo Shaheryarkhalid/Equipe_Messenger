@@ -210,7 +210,7 @@ Sent.propTypes={
 	message:PropTypes.shape({
 		Sender_ID:PropTypes.string,
 		Sender_Id:PropTypes.string,
-		Created_At:PropTypes.number,
+		Created_At:PropTypes.object,
 		Message:PropTypes.oneOfType([
 			PropTypes.string,
 			PropTypes.object

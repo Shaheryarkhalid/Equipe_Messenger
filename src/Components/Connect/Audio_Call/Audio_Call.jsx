@@ -16,7 +16,6 @@ function Audio_Call() {
     const Url = window.location.search;
     let Remote_Stream=new MediaStream();
     const Args = new URLSearchParams(Url);
-    console.log(Reciever);
     const server={
       iceServers: [
         {
@@ -91,12 +90,10 @@ function Audio_Call() {
         Remote_Stream.addTrack(track);
         if(Remote_Stream_Box.current)
         {
-          console.log(Remote_Stream);
           Remote_Stream_Box.current.srcObject=Remote_Stream;
         }
       })
     };
-    console.log(Peer_Connection);
     let Added_Stream;
     async function Make_Call()
     {

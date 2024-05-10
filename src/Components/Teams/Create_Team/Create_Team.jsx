@@ -93,7 +93,7 @@ function Create_Team({set_Create_Team_Popup_Modal})
 
     return (
         <div className='absolute w-full h-full bg-slate-600  bg-opacity-60 flex items-center justify-center overflow-auto' >
-            <div id="crud-modal" tabIndex="1" aria-hidden="true" className=" overflow-y-auto overflow-x-hidden z-50 justify-center items-center w-full md:inset-0 ">
+            <div id="crud-modal" tabIndex="1" aria-hidden="true" className=" z-50 justify-center items-center w-full md:inset-0 ">
                 <div className="relative p-4 w-full max-h-full flex items-center justify-center ">
                     <div className="relative bg-gray-900 rounded-md">
                         <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">

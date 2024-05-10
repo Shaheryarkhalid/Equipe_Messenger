@@ -193,8 +193,8 @@ function Connect() {
 							Contacts.map((usr)=>{
 								return(
 									<>
-										<button onClick={()=>set_Opened_Contact(usr.UID)} >
-											<Contact key={usr.id}  usr={usr} Opened_Contact={Opened_Contact} />
+										<button key={usr.UID} onClick={()=>set_Opened_Contact(usr.UID)} >
+											<Contact key={usr.UID}  usr={usr} Opened_Contact={Opened_Contact} />
 										</button>
 									</>
 								)
@@ -223,8 +223,8 @@ function Connect() {
                             Chats.map((usr)=>{
                               return(
                                 <>
-									<button onClick={()=>set_Opened_Contact(usr.UID)} >
-										<Contact key={usr.id}  usr={usr} Opened_Contact={Opened_Contact} />
+									<button key={usr.UID}   onClick={()=>set_Opened_Contact(usr.UID)} >
+										<Contact key={usr.UID}  usr={usr} Opened_Contact={Opened_Contact} />
 									</button>
                                 </>
                               )
@@ -248,7 +248,7 @@ function Connect() {
 								Contacts.map((usr)=>{
 								return(
 									<>
-									<button onClick={()=>set_Opened_Contact(usr.UID)} >
+									<button key={usr.id}   onClick={()=>set_Opened_Contact(usr.UID)} >
 										<Contact key={usr.id}  usr={usr} Opened_Contact={Opened_Contact} />
 									</button>
 									</>
